@@ -1,6 +1,8 @@
 package com.devokta.pages;
 
 import java.util.List;
+
+import com.deepu.pagefactory.SoftAssertionCustomVerification;
 import org.openqa.selenium.WebElement;
 
 import junit.framework.Assert;
@@ -17,105 +19,73 @@ import org.openqa.selenium.WebDriver;
 public class TimeSheet<WebElement> {
 
 	WebDriver driver;
+	SoftAssertionCustomVerification softAssertionCustomVerification;
 	
-	public TimeSheet(WebDriver driver) {
+	public TimeSheet(WebDriver driver,SoftAssertionCustomVerification softAssertionCustomVerification) {
 		this.driver = driver;
+		this.softAssertionCustomVerification = softAssertionCustomVerification;
 	}
 
-	public void enterDataToTimeSheet(String c) {
+	public void enterDataToTimeSheet(String timeSheetHour) {
 		 By cancelButton = By.xpath("//a[@class='btn floatLeft']");
 		 driver.findElement(cancelButton).click();
 		 
 		 
-		By sunDay = By.xpath("//input[@name='blueFrame:blueFrame_body:customers:0:rows:3:days:0:day:day']");
-		driver.findElement(sunDay).sendKeys(c);
-	
+		By sundayTime = By.xpath("//input[@name='blueFrame:blueFrame_body:customers:0:rows:3:days:0:day:day']");
+		//driver.findElement(sundayTime).sendKeys(timeSheetHour);
+		setTimeSheetHours(sundayTime,timeSheetHour,driver);
 		
-		By mondtime = By.xpath("//input[@name='blueFrame:blueFrame_body:customers:0:rows:3:days:1:day:day']");
-		
-	    String 	mon=driver.findElement(mondtime).getText();
-		System.out.println(mondtime);
-		
-		if(mon!=null&&mon.equals("8.00")) {
-		
-	     System.out.println(mondtime);
-		}
-		else {
-			driver.findElement(mondtime).sendKeys(c);
-			System.out.println(mondtime);
-		}
-		
+		By mondayTime = By.xpath("//input[@name='blueFrame:blueFrame_body:customers:0:rows:3:days:1:day:day']");
+		setTimeSheetHours(mondayTime,timeSheetHour,driver);
 		
 		By tuesDay = By.xpath("//input[@name='blueFrame:blueFrame_body:customers:0:rows:3:days:2:day:day']");
-	    String 	tues =driver.findElement(tuesDay).getText();
-	   // System.out.println(tuesDay);
-		
-		if(tues!=null&&tues.equals("8.00")) {
-			System.out.println(tuesDay);
-		}
-		
-		else {
-			//driver.findElement(tuesDay).sendKeys(c);
-			System.out.println(tuesDay);
-		}
-		
-		
+		setTimeSheetHours(tuesDay,timeSheetHour,driver);
+
 		By wednesDay = By.xpath("//input[@name='blueFrame:blueFrame_body:customers:0:rows:3:days:3:day:day']");
-		String wed =driver.findElement(wednesDay).getText();
-		
-		if(wed!=null&&wed.equals("8.00")) {
-			System.out.println("wednesDay");
-		}
-		else {
-			//driver.findElement(wednesDay).sendKeys(c);
-			System.out.println(wednesDay);
-		}
-	
-		
+		setTimeSheetHours(wednesDay,timeSheetHour,driver);
+
 		By thursDay = By.xpath("//input[@name='blueFrame:blueFrame_body:customers:0:rows:3:days:4:day:day']");
-	    String thurs=	driver.findElement(thursDay).getText();
-		
-		if(thurs!=null&&thurs.equals("8.00")) {
-			System.out.println("thursDay");
-		}
-		else {
-			//driver.findElement(thursDay).sendKeys(c);
-			System.out.println(thursDay);
-		}
-	
-		
+		setTimeSheetHours(thursDay,timeSheetHour,driver);
+
 		By friDay = By.xpath("//input[@name='blueFrame:blueFrame_body:customers:0:rows:3:days:5:day:day']");
-		String fri =driver.findElement(friDay).getText();
-		if(fri!=null&&fri.equals("8.00")) {
-			System.out.println("friDay");
-		}
-		else {
-			//driver.findElement(friDay).sendKeys(c);
-			System.out.println(friDay);
-		}
-		
+		setTimeSheetHours(friDay,timeSheetHour,driver);
+
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		
 		By storebutton=By.xpath("//a[@class='bluebutton store']");
-		driver.findElement(storebutton).click(); 
+		driver.findElement(storebutton).click();
 		
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		
 		By okButton=By.xpath("//button[@class='swal2-confirm swal2-styled']");
-		
+
+
+
 		//assertTrue(driver.findElement(okButton).getText().equals("OK"));
+		softAssertionCustomVerification.verifyTrue("OK button missing",driver.findElement(okButton).getText().equals("OK"));
 		//driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		
 		driver.findElement(okButton).click();
 		
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-		
-          //  By signOut= By.xpath("a");
-		//driver.findElement(signOut).click();
-		assertTrue(driver.findElement(By.linkText("Sign out")).getText().equals("Sign out"));
+
+		By tdGrandTotal=By.xpath("//td[@class='total lastColumn grandTotal']");
+
+		softAssertionCustomVerification.verifyTrue("Grand Total value should be minimum 40 hours",driver.findElement(tdGrandTotal).getText().equals("40.00"));
+
+		//assertTrue(driver.findElement(By.linkText("Sign out")).getText().equals("Sign out"));
+
+		softAssertionCustomVerification.verifyTrue("SigOut should exists after SignIn",driver.findElement(By.linkText("Sign out")).getText().equals("Sign out"));
 		
         signOutClickLinkByHref("https://dev-timesheets.mynisum.com/eh/logout");
-		
+
+
+	}
+
+	private void setTimeSheetHours(By byElement, String hours, WebDriver driver) {
+		if (driver.findElement(byElement) != null && !(driver.findElement(byElement).getAttribute("value").equals(hours))) {
+			driver.findElement(byElement).sendKeys(hours);
+		}
 	}
 	public void signOutClickLinkByHref(String href) {
 		 List<org.openqa.selenium.WebElement> anchors = driver.findElements(By.tagName("a"));
@@ -124,11 +94,9 @@ public class TimeSheet<WebElement> {
 	       int j = 0;
 	       while(i.hasNext()) {
 	           org.openqa.selenium.WebElement anchor = i.next();
-
 	           if(anchor.getAttribute("href").contains(href)) {
 	               j++;
 	           }
-
 	           if(anchor.getAttribute("href").contains(href)) {
 	               anchor.click();
 	               break;

@@ -1,13 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
+<testng-results skipped="0" failed="0" ignored="0" total="4" passed="4">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="18462" started-at="2018-07-25T20:07:24Z" finished-at="2018-07-25T20:07:42Z">
+  <suite name="Default suite" duration-ms="40982" started-at="2018-07-30T01:54:28Z" finished-at="2018-07-30T01:55:09Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="18462" started-at="2018-07-25T20:07:24Z" finished-at="2018-07-25T20:07:42Z">
+    <test name="Default test" duration-ms="40982" started-at="2018-07-30T01:54:28Z" finished-at="2018-07-30T01:55:09Z">
       <class name="com.devokta.pages.VerifyDevOktaLogin">
-        <test-method status="PASS" signature="verifyValidLogin()[pri:0, instance:com.devokta.pages.VerifyDevOktaLogin@3ffc5af1]" name="verifyValidLogin" duration-ms="18442" started-at="2018-07-25T20:07:24Z" finished-at="2018-07-25T20:07:42Z">
+        <test-method status="PASS" signature="inputDataDriverCSVFileData(com.nisum.datadriven.InputData)[pri:0, instance:com.devokta.pages.VerifyDevOktaLogin@5c30a9b0]" name="inputDataDriverCSVFileData" duration-ms="14755" started-at="2018-07-30T01:54:28Z" data-provider="inputCsvData" finished-at="2018-07-30T01:54:43Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[com.nisum.datadriven.InputData@6b2ea799]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- inputDataDriverCSVFileData -->
+        <test-method status="PASS" signature="inputDataDriverCSVFileData(com.nisum.datadriven.InputData)[pri:0, instance:com.devokta.pages.VerifyDevOktaLogin@5c30a9b0]" name="inputDataDriverCSVFileData" duration-ms="13082" started-at="2018-07-30T01:54:43Z" data-provider="inputCsvData" finished-at="2018-07-30T01:54:56Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[com.nisum.datadriven.InputData@4833eff3]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- inputDataDriverCSVFileData -->
+        <test-method status="PASS" signature="inputDataDriverCSVFileData(com.nisum.datadriven.InputData)[pri:0, instance:com.devokta.pages.VerifyDevOktaLogin@5c30a9b0]" name="inputDataDriverCSVFileData" duration-ms="13037" started-at="2018-07-30T01:54:56Z" data-provider="inputCsvData" finished-at="2018-07-30T01:55:09Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[com.nisum.datadriven.InputData@6e239337]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- inputDataDriverCSVFileData -->
+        <test-method status="PASS" signature="verifyValidLogin()[pri:0, instance:com.devokta.pages.VerifyDevOktaLogin@5c30a9b0]" name="verifyValidLogin" duration-ms="2" started-at="2018-07-30T01:55:09Z" finished-at="2018-07-30T01:55:09Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- verifyValidLogin -->
