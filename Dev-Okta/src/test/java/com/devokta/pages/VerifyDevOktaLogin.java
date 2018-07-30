@@ -35,8 +35,13 @@ public class VerifyDevOktaLogin {
 		//uIF.EmpInfo();
 
 		String c= "8.00";
+		ArrayList<String> tabs2 = new ArrayList<String> (driver.getWindowHandles());
 
-		driver.get("https://dev-timesheets.mynisum.com/eh/consultant/overview?1&openPanel=TIMESHEET");
+		driver.switchTo().window(tabs2.get(0));
+		driver.close();
+		driver.switchTo().window(tabs2.get(1));
+		
+		//driver.get("https://dev-timesheets.mynisum.com/eh/consultant/overview?1&openPanel=TIMESHEET");
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
 		String parentWindow = driver.getWindowHandle();
